@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->only('create','update','destory');
+    }
     //
     public function index(){
         
