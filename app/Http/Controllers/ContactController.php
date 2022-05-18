@@ -14,22 +14,22 @@ class ContactController extends Controller
     }
     //
     public function index(){
-        
-        $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies','');
+        $user = auth()->user();
+        $companies = $user->companies()->orderBy('name')->pluck('name','id')->prepend('All Companies','');
         // \DB::enableQueryLog();
-        $contacts =  Contact::latestFirst()->paginate(10);
+        $contacts =  $user->contacts()->latestFirst()->paginate(10);
         return view('contacts.index',compact('contacts','companies'));
     }
 
     public function create(){
         $contact = new Contact();
-        $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies',''); 
+        $companies = auth()->user()->companies()->orderBy('name')->pluck('name','id')->prepend('All Companies',''); 
         return view('contacts.create', compact('companies','contact'));
     }
 
     public function edit($id){
         $contact = Contact::findOrFail($id);
-        $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies',''); 
+        $companies = auth()->user()->orderBy('name')->pluck('name','id')->prepend('All Companies',''); 
         return view('contacts.edit', compact('companies','contact'));
     }
 
@@ -55,7 +55,7 @@ class ContactController extends Controller
             'address' => 'required',
             'company_id' => 'required|exists:companies,id',
         ]);
-      Contact::create($request->all());
+     $request->user()->contacts()->create($request->all());
       return redirect()->route('contacts.index')->with('$message',"contact has been added successfully");
     }
 

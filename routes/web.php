@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Settings\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +38,6 @@ Route::get('/contacts/{id}/edit',[ContactController::class,'edit'])->name('conta
 
 Auth::routes(['verify'=>true]);
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+
+Route::get('/settings/account',[AccountController::class, 'index']);

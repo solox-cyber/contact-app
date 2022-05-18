@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Contact extends Model
 {
     use HasFactory;
-    protected $fillable = ['first_name','last_name','email','phone','address','email','website','company_id'];
+    protected $fillable = ['first_name','last_name','email','phone','address','email','website','company_id','user_id'];
     public $filterColumns = ['company_id'];    
     public function company(){
        
@@ -31,5 +31,5 @@ class Contact extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    
+
 }
