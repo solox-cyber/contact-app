@@ -1,14 +1,15 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\User;
 
+use App\Models\User;
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Contact>
  */
-class CompanyFactory extends Factory
+class ContactFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +19,13 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'first_name' => $this->faker->name(),
+            'last_name' => $this->faker->name(),
+            'phone' => $this->faker->numerify('###-###-####'),
             'email' => $this->faker->unique()->safeEmail(),
             'address' => $this->faker->address(),
-            'user_id' => User::pluck('id')->random(),
+            'user_id' => Company::all()->random()->user_id,
+            'company_id' => Company::factory(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

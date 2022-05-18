@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth')->only('create','update','destory');
+        $this->middleware(['auth','verified']);
     }
     //
     public function index(){

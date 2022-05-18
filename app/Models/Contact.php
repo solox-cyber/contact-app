@@ -28,4 +28,8 @@ class Contact extends Model
         static::addGlobalScope(new ContactSearchScope);
     }  
     
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
 }

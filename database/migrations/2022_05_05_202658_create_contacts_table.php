@@ -14,17 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone')->nullable();
             $table->string('email');
-     
             $table->string('address');
-            $table->unsignedBigInteger('company_id');
-            $table->timestamps();
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+           
 
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
