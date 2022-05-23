@@ -20,15 +20,15 @@
                 </div>
               </div>
             <div class="card-body">
-              @include('contacts._filter')
+              @include('companies._filter')
               <table class="table table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Company</th>
+                    <th scope="col">Contacts</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -36,33 +36,30 @@
                   @if(session('message'))
                         <div class="alert alert-success">{{$message}}</div>
                   @endif
-                    @if($contacts->count()):
-                      @foreach($contacts as $index=> $contact):
+                    @if($companies->count()):
+                      @foreach($companies as $index=> $company):
                       <tr>
-                        <th scope="row">{{ $index + $contacts->firstItem() }}</th>
-                        <td>{{$contact->first_name}}</td>
-                        <td>{{$contact->last_name}}</td>
-                        <td>{{$contact->email}}</td>
-                        <td>{{$contact->company->name}}</td>
+                        <th scope="row">{{ $index + $companies->firstItem() }}</th>
+                        <td>{{$company->name}}</td>
+                        <td>{{$company->address}}</td>
+                        <td>{{$company->email}}</td>
+                        <td>{{$company->contacts->count()}}</td>
                         <td width="150">
-                          <a href="{{route('contacts.show', $contact->id)}}" class="btn btn-sm btn-circle btn-outline-info" title="Show"><i class="fa fa-eye"></i></a>
-                          <a href="{{route('contacts.edit', $contact->id)}}" class="btn btn-sm btn-circle btn-outline-secondary" title="Edit"><i class="fa fa-edit"></i></a>
-                          <a href="{{route('contacts.destroy',$contact->id)}}" class="btn-delete btn btn-sm btn-circle btn-outline-danger" title="Delete"><i class="fa fa-times"></i></a>
+                          <a href="{{route('contacts.show', $company->id)}}" class="btn btn-sm btn-circle btn-outline-info" title="Show"><i class="fa fa-eye"></i></a>
+                          <a href="{{route('contacts.edit', $company->id)}}" class="btn btn-sm btn-circle btn-outline-secondary" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a href="{{route('contacts.destroy',$company->id)}}" class="btn-delete btn btn-sm btn-circle btn-outline-danger" title="Delete"><i class="fa fa-times"></i></a>
                         </td>
                       </tr>
                      
                       @endforeach
-                      <form method="POST" style="display: none" action="" id="form-delete">
-                       @csrf
-                       @method('DELETE')
-                      </form>
+                      @include('layouts._delete-form')
                     @endif
                  
                   
                 </tbody>
               </table> 
 
-             {{$contacts->appends(request()->only('company_id'))->links()}}
+             {{$companies->appends(request()->only('company_id'))->links()}}
               
             </div>
           </div>

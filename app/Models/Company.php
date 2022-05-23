@@ -10,9 +10,15 @@ class Company extends Model
     use HasFactory;
     protected $fillable = ['name','address','email','website'];
    
+    public $searchColumns = ['name','address','email','website'];
    
     public function contacts(){
         return $this->hasMany(Contact::class);
+    }
+
+    public static function boot(){
+        parent::boot();
+        static::addGlobalScope(new SearchScope);
     }
 
     public function user(){
