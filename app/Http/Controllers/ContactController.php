@@ -17,14 +17,14 @@ class ContactController extends Controller
     public function index(){
         $companies = Company::userCompanies();
         // \DB::enableQueryLog();
-        $contacts =  auth()->user()->contacts()->latestFirst()->paginate(10);
+        $contacts =  auth()->user()->contacts()->with('company')->latestFirst()->paginate(100);
         return view('contacts.index',compact('contacts','companies'));
     }
 
     public function create(){
         $contact = new Contact();
         $companies = Company::userCompanies();
-        return view('contacts.create', compact('companies','contact'));
+        return view('contacts.creainte', compact('companies','contact'));
     }
 
     public function edit(Contact $contact){
