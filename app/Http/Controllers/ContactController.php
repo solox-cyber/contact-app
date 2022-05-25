@@ -24,7 +24,7 @@ class ContactController extends Controller
     public function create(){
         $contact = new Contact();
         $companies = Company::userCompanies();
-        return view('contacts.creainte', compact('companies','contact'));
+        return view('contacts.create', compact('companies','contact'));
     }
 
     public function edit(Contact $contact){
