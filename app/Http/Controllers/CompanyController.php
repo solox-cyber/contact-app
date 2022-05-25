@@ -69,7 +69,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        return view('companies.edit', compact('companies'));
+        return view('companies.edit', compact('company'));
     }
 
     /**
@@ -94,6 +94,6 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
-        return back()->with('message', "Company has been removed successfully");
+        return redirect()->route('companies.index')->with('message', "Company has been removed successfully");
     }
 }
