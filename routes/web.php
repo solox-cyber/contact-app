@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
@@ -65,3 +66,7 @@ Route::get('/settings/account',[AccountController::class, 'index']);
 
 Route::get('/settings/profile',[ProfileController::class,'edit'])->name('settings.profile.edit');
 Route::put('/settings/profile',[ProfileController::class,'update'])->name('settings.profile.update');
+
+Route::get('/download',function(){
+   return Storage::download('profile.png', 'myprofile.png');
+});

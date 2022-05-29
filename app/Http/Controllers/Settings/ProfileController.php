@@ -18,6 +18,18 @@ class ProfileController extends Controller
     }
 
     public function update(ProfileUpdateRequest $request){
-         
+      
+      $profileData = $request->handleRequest(); 
+      
+      $request->user()->update($profileData);
+
+   
+         return back()->with('message', "Profile has been updated successfully");
     }
+
+    
+
+
 }
+
+
